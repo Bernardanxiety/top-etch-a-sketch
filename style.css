@@ -29,6 +29,10 @@ body {
   padding: 10px;
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .modes {
   display: flex;
   gap: 1rem;

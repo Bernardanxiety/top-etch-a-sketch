@@ -9,8 +9,14 @@ restart.addEventListener("click", (e) => {
     divs.forEach((div) => container.removeChild(div));
   }
   clearGrid();
-  let size = window.prompt("What size x by x do you want your grid to be?");
-  createGrid(size);
+  let size = window.prompt(
+    "What size x by x do you want your grid to be? Maximum 50!"
+  );
+  if (size > 50) {
+    createGrid(50);
+  } else {
+    createGrid(size);
+  }
   const divs = document.querySelectorAll(".div");
   container.addEventListener("mousedown", (e) => {
     e.preventDefault();
@@ -40,7 +46,7 @@ colorPicker.addEventListener("change", (e) => {
 function createGrid(x) {
   container.setAttribute(
     "style",
-    `display: grid; grid-template-columns: repeat(${x}, 1fr); grid-template-rows: repeat(${x}, 1fr)`
+    `display: grid; grid-template-columns: repeat(${x}, 1fr); grid-template-rows: repeat(${x}, 1fr;); gap: 2px`
   );
   for (let i = 0; i < x * x; i++) {
     const div = document.createElement("div");

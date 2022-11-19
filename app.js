@@ -1,8 +1,21 @@
 const container = document.querySelector(".container");
+const colorPicker = document.querySelector("#colorPicker");
+const modes = document.querySelectorAll(".modes .btn");
 
-function randomNumber(x) {
+modes.forEach((mode) =>
+  mode.addEventListener("click", (e) => {
+    color = e.target.getAttribute("data");
+  })
+);
+
+function rng(x) {
   return Math.floor(Math.random() * x);
 }
+
+let color = "";
+colorPicker.addEventListener("change", (e) => {
+  color = e.target.value;
+});
 
 function createGrid(x) {
   container.setAttribute(
@@ -16,16 +29,30 @@ function createGrid(x) {
     container.appendChild(div);
   }
   const divs = document.querySelectorAll(".div");
-  divs.forEach((div) =>
-    div.addEventListener("mouseover", (e) => {
-      div.setAttribute(
-        "style",
-        `background-color: hsl(${randomNumber(361)}, ${randomNumber(
-          101
-        )}%, ${randomNumber(101)}%);`
-      );
-    })
-  );
 }
 
-window.onload(createGrid(16));
+function setColor(e) {
+  if (color === "eraser") {
+    e.target.style.backgroundColor = "#fff";
+  } else if (color === "random") {
+    e.target.style.backgroundColor = `hsl(${rng(361)}, ${rng(101)}%, ${rng(
+      101
+    )}%)`;
+  } else {
+    e.target.style.backgroundColor = color;
+  }
+}
+
+window.onload = () => {
+  createGrid(16);
+  const divs = document.querySelectorAll(".div");
+
+  container.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    divs.forEach((div) => div.addEventListener("mouseover", setColor));
+  });
+
+  container.addEventListener("mouseup", (e) =>
+    divs.forEach((div) => div.removeEventListener("mouseover", setColor))
+  );
+};

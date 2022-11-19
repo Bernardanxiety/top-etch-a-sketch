@@ -2,6 +2,7 @@ const container = document.querySelector(".container");
 const colorPicker = document.querySelector("#colorPicker");
 const modes = document.querySelectorAll(".modes .btn");
 const restart = document.querySelector(".restart .btn");
+const actives = document.querySelectorAll(".modes div");
 
 restart.addEventListener("click", (e) => {
   function clearGrid() {
@@ -67,6 +68,13 @@ function setColor(e) {
     e.target.style.backgroundColor = color;
   }
 }
+
+actives.forEach((div) =>
+  div.addEventListener("click", (e) => {
+    actives.forEach((div) => div.classList.remove("active"));
+    e.target.classList.add("active");
+  })
+);
 
 window.onload = () => {
   createGrid(16);

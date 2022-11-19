@@ -42,3 +42,8 @@ body {
 .div {
   outline: 1px solid black;
 }
+
+.active {
+  transform: scale(1.1);
+  font-weight: 900;
+}
